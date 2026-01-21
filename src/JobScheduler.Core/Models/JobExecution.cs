@@ -16,6 +16,7 @@ public class JobExecution
     
     public long? ExecutionDurationMs { get; set; }
     
+    [MaxLength(4000)]
     public string? Result { get; set; }
     
     [MaxLength(2000)]
@@ -28,8 +29,8 @@ public class JobExecution
     public string? WorkerId { get; set; }
     
     [Required]
-    public Guid JobId { get; set; }
-    public Job Job { get; set; }
+    public Guid? JobId { get; set; }
+    public Job? Job { get; set; }
     
     public Guid? ScheduleId { get; set; }
     public JobSchedule? Schedule { get; set; }

@@ -38,7 +38,7 @@ public class JobSchedule
         var scheduleInfo = Type switch
         {
             JobScheduleType.Cron => $"Cron: {CronExpression}",
-            JobScheduleType.OneTime => $"OneTime: {StartAt:yyyy-MM-dd HH:mm} Type: {Type}",
+            JobScheduleType.OneTime => $"OneTime: {StartAt:yyyy-MM-dd HH:mm}",
             JobScheduleType.Recurring => $"Recurring",
             _ => Type.ToString()
         };

@@ -18,6 +18,7 @@ public class Job
    public JobType Type { get; set; }
    
    [Required]
+   [MaxLength(4000)]
    public string Data { get; set; }
    
    public DateTime CreatedAt { get; set; }
