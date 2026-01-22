@@ -7,9 +7,9 @@ builder.Services.AddDbContext<JobSchedulerDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         npgsqlOptions => npgsqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 5,
-            maxRetryDelay: TimeSpan.FromSeconds(10),
-            errorCodesToAdd: null
+            5,
+            TimeSpan.FromSeconds(10),
+            null
         )));
 
 var app = builder.Build();

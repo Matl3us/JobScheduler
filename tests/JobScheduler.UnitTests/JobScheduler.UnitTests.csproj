@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\JobScheduler.Infrastructure\JobScheduler.Infrastructure.csproj" />
+        <ProjectReference Include="..\..\src\JobScheduler.Infrastructure\JobScheduler.Infrastructure.csproj"/>
     </ItemGroup>
 
 </Project>

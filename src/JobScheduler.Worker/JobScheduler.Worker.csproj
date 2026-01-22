@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\JobScheduler.Core\JobScheduler.Core.csproj" />
-      <ProjectReference Include="..\JobScheduler.Infrastructure\JobScheduler.Infrastructure.csproj" />
+        <ProjectReference Include="..\JobScheduler.Core\JobScheduler.Core.csproj"/>
+        <ProjectReference Include="..\JobScheduler.Infrastructure\JobScheduler.Infrastructure.csproj"/>
     </ItemGroup>
 </Project>
