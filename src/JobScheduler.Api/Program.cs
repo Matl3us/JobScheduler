@@ -1,4 +1,6 @@
+using JobScheduler.Core.Interfaces;
 using JobScheduler.Infrastructure.Data;
+using JobScheduler.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,7 @@ builder.Services.AddDbContext<JobSchedulerDbContext>(options =>
             TimeSpan.FromSeconds(10),
             null
         )));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

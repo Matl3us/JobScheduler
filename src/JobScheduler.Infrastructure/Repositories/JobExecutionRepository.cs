@@ -13,13 +13,14 @@ public class JobExecutionRepository(JobSchedulerDbContext dbContext)
         return await DbSet.Where(e => e.JobId == jobId)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
+            .OrderByDescending(e => e.CompletedAt)
             .ToListAsync();
     }
 
-    public async Task<JobExecution> GetLatestExecutionAsync(Guid jobId)
+    public async Task<JobExecution?> GetLatestExecutionAsync(Guid jobId)
     {
         return await DbSet.Where(e => e.JobId == jobId)
-            .OrderBy(e => e.CompletedAt)
-            .FirstAsync();
+            .OrderByDescending(e => e.CompletedAt)
+            .FirstOrDefaultAsync();
     }
 }

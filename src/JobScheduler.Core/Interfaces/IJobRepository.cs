@@ -5,5 +5,5 @@ namespace JobScheduler.Core.Interfaces;
 public interface IJobRepository
 {
     Task<IEnumerable<Job>> GetActiveJobsAsync();
-    Task<Job> GetJobWithSchedulesAsync(Guid jobId);
+    Task<Job?> GetJobWithSchedulesAsync(Guid jobId);
 }
