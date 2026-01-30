@@ -55,7 +55,7 @@ public class JobManagementService(
 
         if (!validationResult.IsValid) throw new ValidationException(validationResult.Errors);
 
-        var job = await unitOfWork.JobRepository.GetByIdAsync(request.Id);
+        var job = await unitOfWork.JobRepository.GetByIdAsync(jobId);
         if (job is null) throw new ValidationException("Job doesn't exist");
 
         job.Name = request.Name;
