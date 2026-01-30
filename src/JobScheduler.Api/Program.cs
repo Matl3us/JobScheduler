@@ -4,6 +4,7 @@ using JobScheduler.Core.Interfaces;
 using JobScheduler.Core.Mapper;
 using JobScheduler.Infrastructure.Data;
 using JobScheduler.Infrastructure.Repositories;
+using JobScheduler.Infrastructure.Services;
 using JobScheduler.Infrastructure.Validators;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,7 @@ builder.Services.AddDbContext<JobSchedulerDbContext>(options =>
         )));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IJobManagementService, JobManagementService>();
 
 var app = builder.Build();
 

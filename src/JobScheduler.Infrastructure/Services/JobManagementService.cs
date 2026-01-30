@@ -26,10 +26,8 @@ public class JobManagementService(
             Description = request.Description,
             Type = request.Type,
             Data = request.Data,
-            CreatedAt = DateTime.UtcNow,
             CreatedBy = request.CreatedBy,
-            IsActive = true,
-            Version = 1
+            IsActive = true
         };
 
         var createdJob = await unitOfWork.JobRepository.AddAsync(job);
@@ -40,6 +38,8 @@ public class JobManagementService(
     public async Task<JobDto> GetJobAsync(Guid jobId)
     {
         var job = await unitOfWork.JobRepository.GetByIdAsync(jobId);
+        if (job is null) throw new ValidationException("Job doesn't exist");
+
         return mapper.Map<JobDto>(job);
     }
 
@@ -55,13 +55,13 @@ public class JobManagementService(
 
         if (!validationResult.IsValid) throw new ValidationException(validationResult.Errors);
 
-        var job = new Job
-        {
-            Name = request.Name,
-            Type = request.Type,
-            Description = request.Description,
-            Data = request.Data
-        };
+        var job = await unitOfWork.JobRepository.GetByIdAsync(request.Id);
+        if (job is null) throw new ValidationException("Job doesn't exist");
+
+        job.Name = request.Name;
+        job.Type = request.Type;
+        job.Description = request.Description;
+        job.Data = request.Data;
 
         unitOfWork.JobRepository.Update(job);
         await unitOfWork.SaveChangesAsync();
@@ -69,6 +69,9 @@ public class JobManagementService(
 
     public async Task DeleteJobAsync(Guid jobId)
     {
+        var job = await unitOfWork.JobRepository.GetByIdAsync(jobId);
+        if (job is null) throw new ValidationException("Job doesn't exist");
+
         await unitOfWork.JobRepository.DeleteAsync(jobId);
         await unitOfWork.SaveChangesAsync();
     }
@@ -76,22 +79,18 @@ public class JobManagementService(
     public async Task ActivateJobAsync(Guid jobId)
     {
         var job = await unitOfWork.JobRepository.GetByIdAsync(jobId);
+        if (job is null) throw new ValidationException("Job doesn't exist");
 
-        if (job is not null)
-        {
-            job.IsActive = true;
-            await unitOfWork.SaveChangesAsync();
-        }
+        job.IsActive = true;
+        await unitOfWork.SaveChangesAsync();
     }
 
     public async Task DeactivateJobAsync(Guid jobId)
     {
         var job = await unitOfWork.JobRepository.GetByIdAsync(jobId);
+        if (job is null) throw new ValidationException("Job doesn't exist");
 
-        if (job is not null)
-        {
-            job.IsActive = false;
-            await unitOfWork.SaveChangesAsync();
-        }
+        job.IsActive = false;
+        await unitOfWork.SaveChangesAsync();
     }
 }
