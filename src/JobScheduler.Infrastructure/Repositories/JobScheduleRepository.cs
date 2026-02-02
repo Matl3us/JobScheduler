@@ -8,6 +8,12 @@ namespace JobScheduler.Infrastructure.Repositories;
 public class JobScheduleRepository(JobSchedulerDbContext dbContext)
     : GenericRepository<JobSchedule>(dbContext), IJobScheduleRepository
 {
+    public async Task<IEnumerable<JobSchedule>> GetJobSchedulesAsync(Guid jobId)
+    {
+        return await DbSet.Where(s => s.JobId == jobId)
+            .ToListAsync();
+    }
+
     public async Task<IEnumerable<JobSchedule>> GetDueSchedulesAsync(DateTime currentTime)
     {
         return await DbSet.Where(s =>

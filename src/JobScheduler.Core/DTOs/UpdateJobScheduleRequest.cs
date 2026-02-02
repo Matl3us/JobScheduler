@@ -1,0 +1,12 @@
+﻿using JobScheduler.Core.Enums;
+
+namespace JobScheduler.Core.DTOs;
+
+public class UpdateJobScheduleRequest
+{
+    public JobScheduleType Type { get; init; }
+    public string? CronExpression { get; init; }
+    public DateTime? StartAt { get; init; }
+    public DateTime? EndAt { get; init; }
+    public string TimeZone { get; init; } = "";
+}
