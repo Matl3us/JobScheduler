@@ -2,6 +2,5 @@
 
 public enum JobType
 {
-    HttpRequest,
-    ShellCommand
+    HttpRequest
 }
