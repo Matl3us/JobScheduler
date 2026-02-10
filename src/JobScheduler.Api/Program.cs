@@ -1,4 +1,5 @@
 using FluentValidation;
+using JobScheduler.Api.Extensions;
 using JobScheduler.Core.DTOs;
 using JobScheduler.Core.Interfaces;
 using JobScheduler.Core.Mapper;
@@ -29,6 +30,8 @@ builder.Services.AddScoped<IJobManagementService, JobManagementService>();
 
 var app = builder.Build();
 
+app.MapGroup("/api")
+    .MapEndpoints();
 app.MapGet("/", () => "Hello world!");
 
 app.Run();
