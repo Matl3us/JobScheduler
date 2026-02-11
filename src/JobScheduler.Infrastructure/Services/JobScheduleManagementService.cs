@@ -15,18 +15,18 @@ public class JobScheduleManagementService(
     IValidator<UpdateJobScheduleRequest> updateJobScheduleRequestValidator)
     : IJobScheduleManagementService
 {
-    public async Task<JobScheduleDto> CreateScheduleAsync(CreateJobScheduleRequest request)
+    public async Task<JobScheduleDto> CreateScheduleAsync(Guid jobId, CreateJobScheduleRequest request)
     {
         var validationResult = await createJobScheduleRequestValidator.ValidateAsync(request);
 
         if (!validationResult.IsValid) throw new ValidationException(validationResult.Errors);
 
-        var job = await unitOfWork.JobRepository.GetByIdAsync(request.JobId);
+        var job = await unitOfWork.JobRepository.GetByIdAsync(jobId);
         if (job is null) throw new ValidationException("Job doesn't exist");
 
         var jobSchedule = new JobSchedule
         {
-            JobId = request.JobId,
+            JobId = jobId,
             Type = request.Type,
             CronExpression = request.CronExpression,
             TimeZone = request.TimeZone,

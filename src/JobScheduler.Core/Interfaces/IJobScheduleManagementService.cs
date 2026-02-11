@@ -5,7 +5,7 @@ namespace JobScheduler.Core.Interfaces;
 
 public interface IJobScheduleManagementService
 {
-    Task<JobScheduleDto> CreateScheduleAsync(CreateJobScheduleRequest request);
+    Task<JobScheduleDto> CreateScheduleAsync(Guid jobId, CreateJobScheduleRequest request);
     Task<JobScheduleDto> GetScheduleAsync(Guid scheduleId);
     Task<IEnumerable<JobScheduleDto>> GetJobSchedulesAsync(Guid jobId);
     Task UpdateScheduleAsync(Guid scheduleId, UpdateJobScheduleRequest request);

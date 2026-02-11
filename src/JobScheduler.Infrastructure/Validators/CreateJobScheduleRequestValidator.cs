@@ -9,10 +9,6 @@ public class CreateJobScheduleRequestValidator : AbstractValidator<CreateJobSche
 {
     public CreateJobScheduleRequestValidator()
     {
-        RuleFor(c => c.JobId)
-            .NotEmpty()
-            .WithMessage("Job schedule must be linked to the job by id");
-
         RuleFor(c => c.Type)
             .NotEmpty()
             .WithMessage("Job schedule type is required")
