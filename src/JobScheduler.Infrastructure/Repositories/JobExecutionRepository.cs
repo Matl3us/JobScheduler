@@ -8,7 +8,8 @@ namespace JobScheduler.Infrastructure.Repositories;
 public class JobExecutionRepository(JobSchedulerDbContext dbContext)
     : GenericRepository<JobExecution>(dbContext), IJobExecutionRepository
 {
-    public async Task<IEnumerable<JobExecution>> GetExecutionHistoryAsync(Guid jobId, int pageSize, int page)
+    public async Task<IEnumerable<JobExecution>> GetPaginatedJobExecutionsAsync(Guid jobId, int pageSize = 25,
+        int page = 1)
     {
         return await DbSet.Where(e => e.JobId == jobId)
             .Skip((page - 1) * pageSize)
@@ -17,10 +18,8 @@ public class JobExecutionRepository(JobSchedulerDbContext dbContext)
             .ToListAsync();
     }
 
-    public async Task<JobExecution?> GetLatestExecutionAsync(Guid jobId)
+    public async Task<JobExecution?> GetExecutionAsync(Guid executionId)
     {
-        return await DbSet.Where(e => e.JobId == jobId)
-            .OrderByDescending(e => e.CompletedAt)
-            .FirstOrDefaultAsync();
+        return await DbSet.FirstOrDefaultAsync(e => e.Id == executionId);
     }
 }
